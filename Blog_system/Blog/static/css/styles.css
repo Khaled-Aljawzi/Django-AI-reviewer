@@ -1,0 +1,378 @@
+/* ============ Reddit Dark Theme ============ */
+:root{
+  --bg: #030303;
+  --surface: #1a1a1b;
+  --surface-2: #272729;
+  --border: #343536;
+  --text: #d7dadc;
+  --muted: #818384;
+  --link: #4fbcff;
+  --link-hover: #79cfff;
+  --accent: #ff4500;
+  --shadow: 0 1px 3px rgba(0,0,0,.6);
+  --radius: 6px;
+  --max: 900px;
+  --font: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+}
+
+*{ box-sizing: border-box; }
+
+html, body{ height: 100%; }
+body{
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.45;
+}
+
+/* Links */
+a{
+  color: var(--link);
+  text-decoration: none;
+}
+a:hover{
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+/* Helpers */
+.muted{ color: var(--muted); }
+
+/* ============ Top Nav ============ */
+header{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+nav{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.nav-left, .nav-right{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand{
+  font-weight: 900;
+  letter-spacing: .2px;
+  color: var(--text);
+}
+.brand:hover{
+  color: var(--link);
+  text-decoration: none;
+}
+
+/* Username pill */
+.nav-user{
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  text-decoration: none;
+}
+.nav-user:hover{
+  color: var(--link);
+  text-decoration: none;
+}
+
+/* Logout button as link */
+.link-button{
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  color: var(--link);
+  font-weight: 700;
+}
+.link-button:hover{
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+/* ============ Main Container ============ */
+.container{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 18px 14px 28px;
+}
+
+/* ============ Messages ============ */
+.messages{
+  max-width: var(--max);
+  margin: 12px auto 0;
+  padding: 0 14px;
+}
+.message{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--link);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+.message.success{ border-left-color: #46d160; }
+.message.error{ border-left-color: #ff585b; }
+.message.warning{ border-left-color: #f2a900; }
+
+/* ============ Home Page ============ */
+.page-header{
+  margin: 14px 0 12px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.page-header h1{
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 900;
+}
+.page-header p{
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+/* Header action button */
+.page-header a{
+  font-weight: 800;
+}
+.page-header a[href*="post_create"]{
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(79,188,255,.45);
+  background: rgba(79,188,255,.15);
+  color: var(--link);
+  text-decoration: none;
+}
+.page-header a[href*="post_create"]:hover{
+  background: rgba(79,188,255,.25);
+}
+
+/* ============ Post List ============ */
+.post-list{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.post-card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px 16px 12px;
+  transition: border-color .12s ease, box-shadow .12s ease, transform .06s ease;
+}
+.post-card:hover{
+  border-color: #4f5051;
+  box-shadow: 0 2px 12px rgba(0,0,0,.8);
+}
+
+.post-title{
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 900;
+}
+.post-title a{ color: var(--text); }
+.post-title a:hover{ color: var(--link); }
+
+.post-meta{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 12.5px;
+  margin-bottom: 10px;
+}
+.post-meta a{
+  color: var(--muted);
+  font-weight: 800;
+}
+.post-meta a:hover{ color: var(--link); }
+
+.post-excerpt{
+  margin: 0 0 12px;
+  color: #cfd2d4;
+  font-size: 14.5px;
+}
+
+.post-actions{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ============ Buttons ============ */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-weight: 900;
+  font-size: 12.5px;
+  letter-spacing: .2px;
+  text-decoration: none;
+}
+.btn:hover{
+  background: #323334;
+  border-color: #4f5051;
+  text-decoration: none;
+}
+.btn:active{ transform: translateY(1px); }
+
+/* Danger button (confirm delete) */
+.btn-danger{
+  color: #ff6b6b;
+}
+.btn-danger:hover{
+  background: #4a2424;
+  border-color: #8a3333;
+  color: #ff8a8a;
+  text-decoration: none;
+}
+.btn-danger:active{ transform: translateY(1px); }
+
+/* ============ Empty state ============ */
+.empty-state{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 16px;
+}
+.empty-state h3{
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 900;
+}
+.empty-state p{
+  margin: 0;
+  color: var(--muted);
+}
+
+/* ============ Forms ============ */
+input, textarea, select{
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+}
+textarea{ min-height: 140px; resize: vertical; }
+
+input:focus, textarea:focus, select:focus{
+  outline: none;
+  border-color: rgba(79,188,255,.8);
+  box-shadow: 0 0 0 3px rgba(79,188,255,.25);
+}
+
+.form-actions{ margin-top: 14px; }
+
+/* ============ Tags (CheckboxSelectMultiple) ============ */
+.tag-field{
+  margin-top: 16px;
+}
+.tag-field > label{
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: var(--text);
+}
+.tag-field ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.tag-field li{ margin-bottom: 8px; }
+.tag-field label{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: var(--text);
+}
+.tag-field input[type="checkbox"]{
+  width: 16px;
+  height: 16px;
+  accent-color: var(--link);
+}
+
+/* ============ Post detail (title plain + textarea-like content) ============ */
+.post-detail-header{
+  margin: 8px 0 12px;
+}
+
+.post-detail-title{
+  margin: 0 0 6px;
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: .2px;
+}
+
+.post-content-box{
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 14px 12px;
+}
+
+.post-content-box .post-body{
+  color: var(--text);
+}
+
+.post-content-footer{
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ============ Mobile ============ */
+@media (max-width: 520px){
+  nav{ padding: 10px 12px; }
+  .container{ padding: 14px 12px 24px; }
+  .post-card{ padding: 12px 14px; }
+  .post-title{ font-size: 16.5px; }
+  .post-detail-title{ font-size: 26px; }
+}
+
+
+/* If anything is still wrapping the title, kill it */
+.post-detail,
+.post-detail-header{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}

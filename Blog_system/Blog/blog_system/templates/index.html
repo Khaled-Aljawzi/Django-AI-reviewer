@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Home | My Blog{% endblock %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>Latest Posts</h1>
+    <p>Read what people are writing — and join the conversation.</p>
+                        {% if user.is_authenticated %}
+              <br>
+          <a href="{% url 'post_create' %}">Create a post</a>.
+        {% else %}
+          <a href="{% url 'login' %}">Log in</a> to create the first post.
+        {% endif %}
+  </div>
+
+  {% if posts %}
+    <div class="post-list">
+      {% for post in posts %}
+        <article class="post-card">
+          <h2 class="post-title">
+            <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+          </h2>
+
+          <div class="post-meta">
+            <span>
+              By
+              {% url 'profile' post.author.username as profile_url %}
+              {% if profile_url %}
+                <a href="{{ profile_url }}">@{{ post.author.username }}</a>
+              {% else %}
+                @{{ post.author.username }}
+              {% endif %}
+            </span>
+            <span>•</span>
+            <span>{{ post.created_at|date:"M d, Y" }}</span>
+            {% if post.updated_at %}
+              <span>• Updated {{ post.updated_at|date:"M d, Y" }}</span>
+            {% endif %}
+          </div>
+
+          <p class="post-excerpt">
+            {{ post.content|truncatewords:35 }}
+          </p>
+
+          <div class="post-actions">
+            <a class="btn" href="{% url 'post_detail' post.pk %}"> Read more</a>
+          </div>
+        </article>
+      {% endfor %}
+
+    </div>
+
+  {% else %}
+    <div class="empty-state">
+      <h3>No posts yet</h3>
+      <p>
+        {% if user.is_authenticated %}
+          <a href="{% url 'post_create' %}">Create the first post</a>.
+        {% else %}
+          <a href="{% url 'login' %}">Log in</a> to create the first post.
+        {% endif %}
+      </p>
+    </div>
+  {% endif %}
+{% endblock %}

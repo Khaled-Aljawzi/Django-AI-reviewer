@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} | My Blog{% endblock %}
+
+{% block content %}
+  <article class="post-detail">
+
+    <header class="post-detail-header">
+      <h1 class="post-detail-title">{{ post.title }}</h1>
+
+      <div class="post-meta muted">
+        <span>By @{{ post.author.username }}</span>
+        <span>•</span>
+        <span>{{ post.created_at|date:"M d, Y" }}</span>
+      </div>
+    </header>
+
+    <section class="post-content-box">
+      <div class="post-body">
+        {{ post.content|linebreaks }}
+      </div>
+
+      {% if user.is_authenticated and user == post.author or user.is_superuser %}
+        <div class="post-content-footer">
+          {% if user == post.author %}
+            <a class="btn-outline" href="{% url 'post_update' post.pk %}">Edit</a>
+          {% endif %}
+          <a class="btn-danger" href="{% url 'post_delete' post.pk %}">Delete</a>
+        </div>
+      {% endif %}
+    </section>
+
+  </article>
+
+  <hr>
+
+  <section class="comments">
+    <h2>Comments ({{ comments|length }})</h2>
+
+    {% if comments %}
+      <div class="comment-list">
+        {% for c in comments %}
+          <div class="comment card">
+            <div class="comment-meta muted">
+              <strong>@{{ c.user.username }}</strong>
+              <span>•</span>
+              <span>{{ c.created_at|date:"M d, Y · H:i" }}</span>
+
+              {% if user.is_authenticated and c.user == user or user.is_superuser %}
+                <form method="post" action="{% url 'comment_delete' post.pk c.pk %}" style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="link-button btn-danger ">Delete</button>
+                </form>
+              {% endif %}
+            </div>
+
+            <p class="comment-body">{{ c.body|linebreaksbr }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="muted">No comments yet. Be the first to comment.</p>
+    {% endif %}
+  </section>
+
+  <hr>
+
+  <section class="comment-form">
+    <h3>Leave a comment</h3>
+
+    {% if user.is_authenticated %}
+      <form method="post">
+        {% csrf_token %}
+        {{ comment_form.non_field_errors }}
+
+        <div class="form-row">
+          {{ comment_form.body.label_tag }}
+          {{ comment_form.body }}
+          {{ comment_form.body.errors }}
+        </div>
+
+        <button type="submit" class="btn">Post Comment</button>
+      </form>
+    {% else %}
+      <p><a href="{% url 'login' %}">Log in</a> to comment.</p>
+    {% endif %}
+  </section>
+{% endblock %}

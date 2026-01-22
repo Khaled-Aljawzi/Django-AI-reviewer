@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Create Post{% endblock %}
+
+{% block content %}
+  <h1>Create a new post</h1>
+
+  <form method="post">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    <div>
+      {{ form.title.label_tag }}<br>
+      {{ form.title }}
+      {{ form.title.errors }}
+    </div>
+
+    <div>
+      {{ form.content.label_tag }}<br>
+      {{ form.content }}
+      {{ form.content.errors }}
+    </div>
+
+    <div class="tag-field">
+      <label>Tags</label>
+      {{ form.tags }}
+      {{ form.tags.errors }}
+    </div>
+
+    <div class="form-actions">
+    <button type="submit" class="btn">Publish</button>
+    </div>
+  </form>
+{% endblock %}
